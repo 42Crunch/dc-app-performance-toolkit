@@ -1,6 +1,8 @@
 package bamboogenerator.service.generator.plan;
 
 import bamboogenerator.model.PlanInfo;
+
+import com.atlassian.bamboo.specs.api.builders.AtlassianModule;
 import com.atlassian.bamboo.specs.api.builders.Variable;
 import com.atlassian.bamboo.specs.api.builders.plan.Job;
 import com.atlassian.bamboo.specs.api.builders.plan.Plan;
@@ -13,6 +15,8 @@ import com.atlassian.bamboo.specs.builders.task.ScriptTask;
 import com.atlassian.bamboo.specs.builders.task.TestParserTask;
 import com.atlassian.bamboo.specs.builders.task.VcsCheckoutTask;
 import com.atlassian.bamboo.specs.model.task.TestParserTaskProperties;
+import com.atlassian.bamboo.specs.util.MapBuilder;
+import com.atlassian.bamboo.specs.api.builders.task.AnyTask;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,15 +25,15 @@ import static bamboogenerator.service.generator.plan.InlineBodies.BODY_FAIL;
 import static bamboogenerator.service.generator.plan.InlineBodies.BODY_SUCCESS;
 
 public class PlanGenerator {
-    private static final int TEST_COUNT = 1000;
-    private static final String RESULT_NAME_FAIL = "failed.xml";
-    private static final String RESULT_NAME_SUCCESS = "success.xml";
+        private static final int TEST_COUNT = 1000;
+        private static final String RESULT_NAME_FAIL = "failed.xml";
+        private static final String RESULT_NAME_SUCCESS = "success.xml";
 
-    public static List<Plan> generate(List<PlanInfo> planInfoList) {
-        return planInfoList.stream()
-                .map(PlanGenerator::createPlan)
-                .collect(Collectors.toList());
-    }
+        public static List<Plan> generate(List<PlanInfo> planInfoList) {
+                return planInfoList.stream()
+                                .map(PlanGenerator::createPlan)
+                                .collect(Collectors.toList());
+        }
 
     private static Plan createPlan(PlanInfo planInfo) {
         boolean isFailedPlan = planInfo.isFailed();
@@ -58,7 +62,23 @@ public class PlanGenerator {
                                                 .interpreterBinSh()
                                                 .inlineBody(isFailedPlan
                                                         ? String.format(BODY_FAIL, TEST_COUNT, TEST_COUNT, TEST_COUNT)
-                                                        : String.format(BODY_SUCCESS, TEST_COUNT, TEST_COUNT))
+                                                        : String.format(BODY_SUCCESS, TEST_COUNT, TEST_COUNT)),
+                                        new AnyTask(new AtlassianModule("com.xliic.ci.bamboo-plugin:AuditTask"))
+                                                .description("42Crunch REST API Static Security Task")
+                                                .configuration(new MapBuilder()
+                                                        .put("DEFAULT_COLLECTION_NAME", "")
+                                                        .put("API_TOKEN", "${bamboo.SECRET_42C_API_TOKEN}")
+                                                        .put("IGNORE_FAILURES", "true")
+                                                        .put("SKIP_LOCAL_CHECKS", "")
+                                                        .put("WRITE_JSON_REPORT_TO", "")
+                                                        .put("SHARE_EVERYONE", "OFF")
+                                                        .put("MIN_SCORE", "75")
+                                                        .put("PLATFORM_URL", "https://platform.dev.42crunch.com")
+                                                        .put("IGNORE_NETWORK_ERRORS", "true")
+                                                        .put("API_TAGS", "")
+                                                        .put("LOG_LEVEL", "ERROR")
+                                                        .put("ROOT_DIRECTORY", "")
+                                                        .build())
                                 )
                                 .finalTasks(new TestParserTask(TestParserTaskProperties.TestType.JUNIT)
                                         .description("Unit test results parser task")

@@ -15,7 +15,8 @@ ENV CHROME_LATEST_URL="https://dl.google.com/linux/direct/google-chrome-stable_c
 ENV CHROME_VERSION_URL="https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb"
 
 RUN apt-get -y update \
-  && $APT_INSTALL vim git openssh-server wget \
+  && apt-get -y upgrade \
+  && $APT_INSTALL git openssh-server wget \
   && python -m pip install --upgrade pip \
   && apt-get clean
 
@@ -30,8 +31,9 @@ RUN if [ "$CHROME_VERSION" = "latest" ]; then wget -O google-chrome.deb $CHROME_
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-RUN if [ "$INCLUDE_BZT" = "true" ]; then \
-      wget https://blazemeter-tools.s3.us-east-2.amazonaws.com/bzt.tar.gz -O /tmp/bzt.tar.gz && \
+ADD . /tmp/
+
+RUN if [ "$INCLUDE_BZT_TOOLS" = "true" ]; then \
       tar -xzf /tmp/bzt.tar.gz -C /root && \
       rm /tmp/bzt.tar.gz; \
     fi

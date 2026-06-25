@@ -5,7 +5,7 @@ settings:
   verbose: false
   check-updates: false # disable bzt check for updates
   env:
-    application_hostname: a6a37886dd3a240308fcc67b4349e6dd-48601666.us-east-2.elb.amazonaws.com # Bamboo DC hostname without protocol and port e.g. test-bamboo.atlassian.com or localhost
+    application_hostname: a08a79cd4720040a392cd44ba9152e6f-1687359824.us-east-2.elb.amazonaws.com # Bamboo DC hostname without protocol and port e.g. test-bamboo.atlassian.com or localhost
     application_protocol: http # http or https
     application_port: 80 # 80, 443, 8085, etc
     secure: True # Set False to allow insecure connections, e.g. when using self-signed SSL certificate

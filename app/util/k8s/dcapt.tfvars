@@ -11,13 +11,13 @@
 # This value can not be altered after the configuration has been applied.
 # Only lowercase letters, numbers, dashes, and dots are allowed.
 # ! REQUIRED !
-environment_name = "dcapt-product"
+environment_name = "perf-test-42c"
 
 # Supported products: jira, confluence, bitbucket, crowd and bamboo.
 # For JSM set product as jira.
 # e.g.: products = ["jira"]
 # ! REQUIRED !
-products = ["product-to-deploy"]
+products = ["bamboo"]
 
 # License
 # To avoid storing license in a plain text file, we recommend storing it in an environment variable prefixed with `TF_VAR_` (i.e. `TF_VAR_jira_license`) and keep the below line commented out
@@ -28,7 +28,7 @@ jira_license = "jira-license"
 confluence_license = "confluence-license"
 bitbucket_license = "bitbucket-license"
 crowd_license = "crowd-license"
-bamboo_license = "bamboo-license"
+bamboo_license = "AAACLA0ODAoPeNptUsFy2jAQvfsrNNNbOibGBEgz4wPYCiEFmzGmTdr0IIsFK9iSI8km/H2FgZA2Oeig3X27b9/bLz9hie4rjtwr1O7cdJ2bbh+NpglyHbdnbWD3A6RignvtnuP0netOp22lpEiFaE0YBa4AL5neF+AwwfEsHs+xFVZFCjJaLZQBe/Yb4hQfNt+JoCQfrIHrpsYXXBOqQ1KAV2xIwbjakBMyIJr4phKkp2UF1qySNCMKTBy8PVXb6dnulXXklOxKaBoleJ6Mw9Epjl9LJncNaNZ2nbvTUDwlLP841WRYDYeJc5A1yHHgDR8c1/72GLXtcXjdsydRd/T5fjEUQsN5wfzA4Y6ozJv6W/92ULfpah3AJA+pynbBcNVJh7/q+5d+d5DFG5fdVuPd8zDc1tnLI8kesnqU9B6+ft8+eU+eNa9SRSUrG/Ebip+ymOWEv/fgnUJv6nxM/SPexcVFGCX2bRTbszgKFn4yjkJ7Mccm4fkSjJxLlO6QzgAdeyDMqViCRKUUz0A1+p1pXT7dXF6ujaw6J0oxwltUFJdHWWw4IP60UCAQFxotmdKSpZUG05kppAWildKiMEfVsoxj5hw44fSjq4aXH+NBggN7+LgneXb2yM/4uOAbLrbcmuPQM8/uOo4VyTXhTJFG0ymRG9BlTiigGGoGW7QSEgX+YJZYzdqm6v8DDOBsSgJKo+N6DbTMqzXjaAk15KI0a1i4JnlFzhb+Bf9TNq8wLAIUOma8sMnx0lnR6+2qpcKbZHN+m7wCFGuh6WFVJEeLeLTwBPsTUPaPsT84X02q2"
 
 # Replica count.
 # Number of product application nodes.
@@ -485,7 +485,7 @@ bamboo_dataset_url = "https://centaurus-datasets.s3.amazonaws.com/bamboo/dcapt-b
 
 # A list of JVM arguments to be passed to the server. Defaults to an empty list.
 # Example: ["-Dproperty=value", "-Dproperty1=value1"]
-bamboo_additional_jvm_args = ["-Dupm.plugin.upload.enabled=true"]
+bamboo_additional_jvm_args = ["-Dupm.plugin.upload.enabled=true", "-Datlassian.upm.signature.check.disabled=true"]
 
 ################################################################################
 # Monitoring settings

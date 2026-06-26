@@ -29,7 +29,7 @@ public class Main {
 
     // e.g. for TerraForm deployment:    BAMBOO_SERVER_URL = "http://my-babmoo.amazonaws.com:80/bamboo"
     // e.g. for localhost deployment:    BAMBOO_SERVER_URL = "http://0.0.0.0:8085"
-    private static final String BAMBOO_SERVER_URL = "http://my-babmoo.amazonaws.com:80/bamboo";
+    private static final String BAMBOO_SERVER_URL = "http://a08a79cd4720040a392cd44ba9152e6f-1687359824.us-east-2.elb.amazonaws.com:80/bamboo";
     private static final String ADMIN_USER_NAME = "admin";
 
     // NOTE: Please make sure you haven't changed these values after initial run
